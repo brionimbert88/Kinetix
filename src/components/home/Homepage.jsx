@@ -1,42 +1,49 @@
-import React, { useState } from 'react';
-import './Homepage.css';
-import Footer from '../footer/Footer';
-import Contact from '../contact/Contact';
-import About from '../about/About';
-import Logo from '../../assets/logo.png'; // Import the logo image
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import "./Homepage.css";
+import Footer from "../footer/Footer";
+import Contact from "../contact/Contact";
+import About from "../about/About";
+import Logo from "../../assets/logo.png"; // Import the logo image
 
 export default function Homepage() {
-  const [currentPage, setCurrentPage] = useState('home');
+  const [currentPage, setCurrentPage] = useState("home");
+  const navigate = useNavigate();
 
   return (
     <div className="homepage-shell">
       <main className="homepage-main">
-        {currentPage === 'home' && (
+        
           <div className="homepage-home">
             <section className="hero-section">
-              <img src={Logo} alt="Kinetix Digital Group Logo" className="hero-logo" />
+              <img
+                src={Logo}
+                alt="Kinetix Digital Group Logo"
+                className="hero-logo"
+              />
               {/* <div className="hero-badge">Operational Framework v1.0</div> */}
               <h1 className="hero-title">
                 Bridging Next-Gen Technology and Innovation
               </h1>
               <p className="hero-description">
-                An interconnected multimedia ecosystem driving forward digital architecture, design, and engaging media experiences.
+                An interconnected multimedia ecosystem driving forward digital
+                architecture, design, and engaging media experiences.
               </p>
 
               <div className="hero-actions">
                 <button
                   type="button"
-                  onClick={() => setCurrentPage('contact')}
+                  onClick={() => navigate("/contact")}
                   className="btn btn-primary"
                 >
                   Work With Us
                 </button>
                 <button
                   type="button"
-                  onClick={() => setCurrentPage('about')}
+                  onClick={() => navigate("/about")}
                   className="btn btn-secondary"
                 >
-                  Explore Ecosystem
+                  About Us
                 </button>
               </div>
             </section>
@@ -53,12 +60,14 @@ export default function Homepage() {
                     <div className="subsidiary-icon">&lt;/&gt;</div>
                     <h3>Kinetix Web Design & Development</h3>
                     <p>
-                      Engineering high-performance web applications, secure cloud architecture, and sleek, custom modern user experiences.
+                      Engineering high-performance web applications, secure
+                      cloud architecture, and sleek, custom modern user
+                      experiences.
                     </p>
                   </div>
-                  <a href="#web-dev" className="subsidiary-link">
+                  <Link to="/webdesign" className="subsidiary-link">
                     Visit Network <span aria-hidden="true">→</span>
-                  </a>
+                  </Link>
                 </article>
 
                 <article className="subsidiary-card card-podcast">
@@ -66,12 +75,13 @@ export default function Homepage() {
                     <div className="subsidiary-icon">🎙️</div>
                     <h3>Kinetix Podcasting Network</h3>
                     <p>
-                      Publishing next-generation audio networks, custom media infrastructure, and high-impact digital talk programming.
+                      Publishing next-generation audio networks, custom media
+                      infrastructure, and high-impact digital talk programming.
                     </p>
                   </div>
-                  <a href="#podcasting" className="subsidiary-link">
+                  <Link to="/podcast" className="subsidiary-link">
                     Listen Now <span aria-hidden="true">→</span>
-                  </a>
+                  </Link>
                 </article>
 
                 <article className="subsidiary-card card-gaming">
@@ -79,21 +89,19 @@ export default function Homepage() {
                     <div className="subsidiary-icon">🎮</div>
                     <h3>Kinetix Gaming</h3>
                     <p>
-                      Developing real-time data analytical solutions, custom community hubs, and optimized strategies for competitive web platforms.
+                      Developing real-time data analytical solutions, custom
+                      community hubs, and optimized strategies for competitive
+                      web platforms.
                     </p>
                   </div>
-                  <a href="#gaming" className="subsidiary-link">
+                  <Link to="/gaming" className="subsidiary-link">
                     Enter Arena <span aria-hidden="true">→</span>
-                  </a>
+                  </Link>
                 </article>
               </div>
             </section>
           </div>
-        )}
-
-        {currentPage === 'about' && <About />}
-
-        {currentPage === 'contact' && <Contact />}
+        
       </main>
 
       <Footer />
