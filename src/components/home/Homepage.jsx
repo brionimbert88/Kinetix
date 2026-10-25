@@ -87,7 +87,7 @@ export default function Homepage() {
                 <article className="subsidiary-card card-gaming">
                   <div>
                     <div className="subsidiary-icon">🎮</div>
-                    <h3>Kinetix Gaming</h3>
+                    <h3>Kinetix Gaming Magazine</h3>
                     <p>
                       Developing real-time data analytical solutions, custom
                       community hubs, and optimized strategies for competitive
