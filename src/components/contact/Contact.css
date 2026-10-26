@@ -40,6 +40,20 @@
   box-shadow: 0 30px 60px rgba(15, 23, 42, 0.4);
 }
 
+.contact-home-button {
+  width: 100%;
+  height: 3rem;
+  margin-top: 1rem !important;
+  border-color: #06b6d4 !important;
+  color: #22d3ee !important;
+  font-weight: 700 !important;
+}
+
+.contact-home-button:hover {
+  border-color: #22d3ee !important;
+  background-color: rgba(34, 211, 238, 0.08) !important;
+}
+
 .contact-input .MuiOutlinedInput-root {
   background: #0f172a;
   color: #ffffff;
@@ -71,4 +85,17 @@
 
 .contact-button:hover {
   background-color: #22d3ee;
+}
+
+.contact-status {
+  margin: 0;
+  text-align: center;
+}
+
+.contact-status-success {
+  color: #86efac;
+}
+
+.contact-status-error {
+  color: #fca5a5;
 }

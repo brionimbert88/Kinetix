@@ -24,5 +24,3 @@ export async function sendContactEmail({ name, email, message }) {
 
   return transporter.sendMail(mailOptions);
 }
-
-// module.exports = { sendContactEmail };

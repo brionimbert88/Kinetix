@@ -1,34 +1,50 @@
-import React, {useState} from "react";
+import { useState } from "react";
 import { Button, TextField } from "@mui/material";
-import {emailMessage} from "../../services/Configuration";
+import { Link } from "react-router-dom";
+import { emailMessage } from "../../services/Configuration";
 import "./Contact.css";
 
 export default function Contact() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
 
   const handleReset = () => {
     setName("");
     setEmail("");
     setMessage("");
-  }
+    setSubmitStatus(null);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const emailBody = { name, email, message }
+    setIsSubmitting(true);
+    setSubmitStatus(null);
 
     try {
-      await emailMessage(emailBody).then((response) => {
-        console.log("Email sent successfully:", response)
-        handleReset();
-      })
+      await emailMessage({ name, email, message });
+      handleReset();
+      setSubmitStatus({
+        type: "success",
+        message: "Your message was sent successfully.",
+      });
     } catch (error) {
       console.error("Error sending email:", error);
+      setSubmitStatus({
+        type: "error",
+        message:
+          error.response?.status === 502
+            ? "The contact service is unavailable. Please try again later."
+            : error.response?.data?.error ||
+              "We could not send your message. Please try again.",
+      });
+    } finally {
+      setIsSubmitting(false);
     }
-
-  }
+  };
 
   return (
     <section className="contact-section">
@@ -53,6 +69,7 @@ export default function Contact() {
           className="contact-input"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          required
         />
 
         <TextField
@@ -64,6 +81,7 @@ export default function Contact() {
           className="contact-input"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
         />
 
         <TextField
@@ -76,9 +94,26 @@ export default function Contact() {
           className="contact-input"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
+          required
         />
 
-        <Button type="reset" variant="outlined" size="large" className="contact-button" onClick={handleReset}>
+        {submitStatus && (
+          <p
+            className={`contact-status contact-status-${submitStatus.type}`}
+            role={submitStatus.type === "error" ? "alert" : "status"}
+          >
+            {submitStatus.message}
+          </p>
+        )}
+
+        <Button
+          type="reset"
+          variant="outlined"
+          size="large"
+          className="contact-button"
+          onClick={handleReset}
+          disabled={isSubmitting}
+        >
           Reset Form
         </Button>
 
@@ -87,11 +122,20 @@ export default function Contact() {
           variant="contained"
           size="large"
           className="contact-button"
-          onClick={handleSubmit}
+          disabled={isSubmitting}
         >
-          Submit Message
+          {isSubmitting ? "Sending..." : "Submit Message"}
         </Button>
       </form>
+        <Button
+          component={Link}
+          to="/"
+          variant="outlined"
+          size="large"
+          className="contact-home-button"
+        >
+          Back to Home Page
+        </Button>
     </section>
   );
 }
